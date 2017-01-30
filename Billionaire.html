@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<htm1>
+	<head>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<!--<script>
+			var xhr = new XMLHttpRequest();
+			xhr.open("GET", "https://www.zipcodeapi.com/", false);
+			xhr.setRequestHeader("Content-type", "application/json");
+			xhr.send();
+			
+			var response = JSON.parse(xhr.respone)
+			
+			document.write(response);
+			document.write(xhr.statusText);
+		</script>-->
+
+	</head>
+	
+	<body>
+		<p id="data">Billions Baby! </p>
+		<label>ZipCode 1: </label><input type = 'text' id='zipcodeone'/>
+		<br>
+		<label>ZipCode 2: </label><input type = 'text' id='zipcodetwo'/>
+		<br>
+		<button>Get Distance</button>
+		<p id="distance"></p>
+	</body>
+			<script>
+			
+			//$(document).ready(function() {
+				$("button").click(function() {
+					
+				});
+			//});			
+			
+		$("button").click(function() {
+		
+		var $distance = $("#distance");
+		$distance.empty();
+		
+			$(function () {
+				var zipcodeone = $("#zipcodeone").val();
+				var zipcodetwo = $("#zipcodetwo").val();
+
+				$.ajax({
+					type:'GET',
+					url: 'https://www.zipcodeapi.com/rest/nQBI6jWvYHtLKZXnIQKW53JowAVgIJW6AyPGRLcQsFCcFAznqkjvn3UUDPalz6s9/distance.json/' + zipcodeone + '/' + zipcodetwo + '/mile',
+					success: function(datas) {
+						//$.each(datas, function(i, data) {
+							//$distance.prepend(datas.distance + ' miles away');
+						//});
+					$.ajax({
+						type:'GET',
+						url: 'https://www.zipcodeapi.com/rest/nQBI6jWvYHtLKZXnIQKW53JowAVgIJW6AyPGRLcQsFCcFAznqkjvn3UUDPalz6s9/radius.json/' + zipcodeone + '/' + (datas.distance/2) +'/mile',
+						success: function(zips) {
+							$.each(zips.zip_codes, function(i, zip) {
+								$distance.append("<li>Zip Code: " + zip.zip_code + ' , distance: ' + zip.distance +  '</li>');
+								console.log(zip);
+							});							
+						}
+					});
+					}
+				});
+			});
+		});	
+//https://www.zipcodeapi.com/rest/bq0J79sCI9ekZPFsdJpcNoPJv12eZLMabMUjWnWEwaZw0EZenpraOgUjhXxhIjsU/match-close.json/76208,75007,75067,76203,90293/2000/mile
+		
+		</script>
+</html>
